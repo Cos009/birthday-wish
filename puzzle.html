@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Puzzle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      font-family: 'Poppins', sans-serif;
+      color: rgb(91, 19, 19);
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .box {
+      background: rgba(184, 58, 58, 0.2);
+      backdrop-filter: blur(10px);
+      padding: 5vw;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+    }
+
+    p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2vw;
+      margin: 20px auto;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .cell {
+      aspect-ratio: 1 / 1; /* always square */
+      background: rgba(151, 23, 23, 0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.5rem, 6vw, 2.2rem);
+      font-weight: bold;
+      color: #602525;
+      cursor: pointer;
+      transition: 0.2s;
+      user-select: none;
+    }
+
+    .cell:hover {
+      background: rgba(156, 25, 25, 0.4);
+      transform: scale(1.05);
+    }
+
+    .word-display {
+      margin-top: 15px;
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      font-weight: bold;
+      letter-spacing: 5px;
+      color: #762525;
+      min-height: 40px;
+    }
+
+    button {
+      margin: 10px 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #a75061;
+      color: rgb(233, 233, 233);
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #773240;
+    }
+
+    #msg {
+      margin-top: 10px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>🔍 Click Letters to Form the Word!</h1>
+    <p>Clue: It's what today is all about 🎉</p>
+
+    <!-- Puzzle Grid -->
+    <div class="grid">
+      <div class="cell" onclick="addLetter('H')">H</div>
+      <div class="cell" onclick="addLetter('A')">A</div>
+      <div class="cell" onclick="addLetter('P')">P</div>
+      <div class="cell" onclick="addLetter('P')">P</div>
+      <div class="cell" onclick="addLetter('Y')">Y</div>
+      <div class="cell" onclick="addLetter('X')">X</div>
+      <div class="cell" onclick="addLetter('B')">B</div>
+      <div class="cell" onclick="addLetter('D')">D</div>
+      <div class="cell" onclick="addLetter('Z')">Z</div>
+    </div>
+
+    <!-- Selected word display -->
+    <div class="word-display" id="word"></div>
+
+    <!-- Buttons -->
+    <button onclick="check()">Submit</button>
+    <button onclick="clearWord()">Clear</button>
+
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    let currentWord = "";
+
+    function addLetter(letter) {
+      currentWord += letter;
+      document.getElementById("word").innerText = currentWord;
+    }
+
+    function clearWord() {
+      currentWord = "";
+      document.getElementById("word").innerText = "";
+      document.getElementById("msg").innerText = "";
+    }
+
+    function check() {
+      if(currentWord.toUpperCase() === "HAPPY") {
+        document.getElementById("msg").innerHTML = "✅ Correct! Moving ahead...";
+        setTimeout(()=>{ window.location.href="code.html"; }, 1500);
+      } else {
+        document.getElementById("msg").innerHTML = "❌ Wrong! Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
